@@ -1,0 +1,7 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="25" cy="25" r="25" fill="black"/>
+<rect width="8" height="8" transform="matrix(0.707989 -0.706223 0.707989 0.706223 25 30)" fill="#F8F8F8"/>
+<rect width="8" height="8" transform="matrix(0.707989 -0.706223 0.707989 0.706223 13 30)" fill="#F8F8F8"/>
+<rect width="8" height="8" transform="matrix(0.707989 -0.706223 0.707989 0.706223 25 18)" fill="#F8F8F8"/>
+<rect width="8" height="8" transform="matrix(0.707989 -0.706223 0.707989 0.706223 13 18)" fill="#F8F8F8"/>
+</svg>
