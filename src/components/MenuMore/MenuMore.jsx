@@ -1,9 +1,9 @@
 import React from "react";
 import "./MenuMore.scss";
-function MenuMore({ openMore, setOpenMire, handleCheckboxChange }) {
+function MenuMore({ openMore, setOpenMire, handleCheckboxChange, setOpenRedactor ,openRedactor }) {
   return (
     <div className={openMore? 'menu menu-active' : "menu"}>
-      <button onClick={() => console.log(123)} className='menu__button' disabled={!openMore}>Redactor</button>
+      <button onClick={() =>setOpenRedactor(!openRedactor)} className='menu__button' disabled={!openMore}>Redactor</button>
       <div className='toggleWrapper'>
         <input
           type='checkbox'

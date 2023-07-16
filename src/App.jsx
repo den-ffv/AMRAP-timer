@@ -6,6 +6,7 @@ import pauseIcon from "/pause.svg";
 import clousIcon from "/cancel.svg";
 import Button from "./components/UI/Button/Button";
 import MenuMore from "./components/MenuMore/MenuMore";
+import Redactor from "./components/Redactor/Redactor";
 function App() {
   const [start, setStart] = useState(false);
   const [rotate, setRotate] = useState(0);
@@ -18,6 +19,11 @@ function App() {
   const [openMore, setOpenMire] = useState(false);
 
   const [isChecked, setIsChecked] = useState(false);
+
+  const [fontFamili, setFontFamili] = useState("Space Mono");
+  const [fontColor, setFontColor] = useState("#222");
+  const [openRedactor, setOpenRedactor] = useState(false);
+  console.log(fontColor);
 
   useEffect(() => {
     let timer;
@@ -42,12 +48,6 @@ function App() {
       clearInterval(timer);
     };
   }, [isRunning, milliseconds, rotate, seconds]);
-  const headleSratr = () => {
-    setIsRunning(true);
-  };
-  const headleStop = () => {
-    setIsRunning(false);
-  };
 
   const handleStartPause = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
@@ -65,25 +65,54 @@ function App() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
+
+  const fontFamiluItem = [
+    { id: 1, font: "Space Mono" },
+    { id: 2, font: "Tektur" },
+    { id: 3, font: "Times New Roman" },
+  ];
+  const fontColorItem = [
+    {id: 1, color : "rgb(34, 34, 34)"},
+    {id: 2, color : "rgb(197 15 207)"},
+    {id: 3, color : "rgb(0 141 46)"},
+    {id: 4, color : "rgb(18 87 151)"},
+  ]
   return (
     <>
       <div className='wrapper'>
-        <h1 className='titel'>AMRAP</h1>
+        {openRedactor && (
+          <Redactor
+          fontFamiluItem={fontFamiluItem}
+            fontFamili={fontFamili}
+            fontColorItem={fontColorItem}
+            setFontFamili={setFontFamili}
+            setFontColor={setFontColor}
+          />
+        )}
+        <h1
+          className='titel'
+          style={{ fontFamily: localStorage.getItem("font"), color: localStorage.getItem("color") }}
+        >
+          AMRAP
+        </h1>
         <div className='content'>
           <div
             className='progres-bar'
             style={{ transform: `rotate(${rotate}deg)` }}
           >
-            <div className='progres-bar__item'></div>
+            <div className='progres-bar__item' style={{background: localStorage.getItem("color")}}></div>
           </div>
           <div className='timer'>
-            <div className='timer__content'>
-              <p className='timer__time' >{`${minutes
+            <div className='timer__content' style={{borderColor: localStorage.getItem("color")}}>
+              <p
+                style={{ fontFamily: localStorage.getItem("font"), color: localStorage.getItem("color") }}
+                className='timer__time'
+              >{`${minutes.toString().padStart(2, "0")}:${seconds
                 .toString()
-                .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}${
+                .padStart(2, "0")}${
                 isChecked
-                  ? (`:${milliseconds.toString().slice(0, 2).padStart(2, "0")}`)
-                  : ("")
+                  ? `:${milliseconds.toString().slice(0, 2).padStart(2, "0")}`
+                  : ""
               }`}</p>
             </div>
           </div>
@@ -95,19 +124,18 @@ function App() {
                 buttonIcon={openMore ? clousIcon : moreIcon}
               />
               <MenuMore
+                setOpenRedactor={setOpenRedactor}
+                openRedactor={openRedactor}
                 openMore={openMore}
                 setOpenMire={setOpenMire}
                 handleCheckboxChange={handleCheckboxChange}
               />
             </div>
-            {/* <div onClick={() => setStart(!start)}> */}
             <Button
               buttonFuncion={handleStartPause}
               altText={"pause"}
               buttonIcon={isRunning ? pauseIcon : playIcon}
             />
-
-            {/* </div> */}
             <Button
               buttonFuncion={handleReset}
               altText={"restart"}
